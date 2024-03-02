@@ -1,11 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
-import {
-  getProduct,
-  getProducts,
-  getPages,
-  getCollection,
-} from "./services/shopify.js";
+import { getPages, getCollection } from "./actions/shopify.js";
+import productsController from "./controllers/productsController.js";
+import { getHome } from "./controllers/homeController.js";
 
 dotenv.config();
 
@@ -15,45 +12,20 @@ const app = express();
 
 app.use(express.json());
 
-app.get("/", async (req, res) => {
-  try {
-    const { productID } = req.query;
+// HOME
+app.get("/", getHome);
 
-    const product = await getProduct(productID);
-
-    if (!product) {
-      res.status(404).json({
-        msg: "Producto no encontrado",
-      });
-    }
-
-    return res.status(200).json({
-      msg: "Producto encontrado con éxito",
-      data: product.body.product,
-    });
-  } catch (error) {
-    console.log("error", error);
-    return res.status(500).json({
-      msg: "Hubo un problema en el servidor.",
-    });
-  }
-});
-
-app.get("/products", async (req, res) => {
-  const products = await getProducts();
-  console.log("products", products);
-  return res.status(200).json(products);
-});
+// PRODUCTS
+app.get("/products", productsController.getProducts);
+app.get("/products/:id", productsController.getProduct);
 
 app.get("/pages", async (req, res) => {
   const pages = await getPages();
-  console.log("pages", pages);
   return res.status(200).json(pages);
 });
 
 app.get("/collection", async (req, res) => {
   const collections = await getCollection();
-  console.log("collections", collections);
   return res.status(200).json(collections);
 });
 

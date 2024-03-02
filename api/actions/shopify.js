@@ -31,7 +31,7 @@ const shopify = shopifyApi({
 const session = shopify.session.customAppSession(API_CUSTOM_APP_SESSION);
 const client = new shopify.clients.Rest({ session });
 
-export const getProduct = async (productID) => {
+export const getProductAction = async (productID) => {
   try {
     const data = await client.get({
       path: `products/${productID}`,
@@ -51,7 +51,7 @@ export const getProduct = async (productID) => {
   }
 };
 
-export const getProducts = async () => {
+export const getProductsAction = async () => {
   const data = await client.get({
     path: "products",
   });
