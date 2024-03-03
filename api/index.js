@@ -14,9 +14,9 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
-// inclúyelos antes de otras rutas
-app.use(cors());
-app.options('*', cors()); //habilitar las solicitudes de todas las rutas
+app.use(cors({
+  origin: 'http://localhost:5175'
+}));
 
 app.use(express.json());
 
