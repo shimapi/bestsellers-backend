@@ -26,20 +26,46 @@ const shopify = shopifyApi({
 const session = shopify.session.customAppSession(API_CUSTOM_APP_SESSION)
 const client = new shopify.clients.Rest({ session });
 
-export const getProduct = async () => {
-  const data = await client.get({
-    path: 'products/9057143062821',
-  });
-  console.log('data', data.body.product.title); // obtengo titulo del producto
-  return data;
-}
 
-export const getProducts = async () => {
-  const data = await client.get({
-    path: 'products',
-  });
-  console.log('data', data.body.products); // obtengo productos
-  return data;
+export const getProductAction = async (productID) => {
+  try {
+    const data = await client.get({
+      path: `products/${productID}`,
+    });
+
+    if (!data) {
+      console.log(data);
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.log("error", error);
+    return res.status(500).json({
+      msg: "Hubo un problema en el servidor.",
+    });
+  }
+};
+
+export const getProductsAction = async () => {
+  try {
+    const data = await client.get({
+      path: 'products/',
+    });
+    if (!data) {
+      console.log(data);
+      return null;
+    }
+    return data;
+
+  } catch (error) {
+    console.log("error", error);
+    return res.status(500).json({
+      msg: "Hubo un problema en el servidor.",
+    });
+  }
+
+
 }
 
 export const getCollection = async () => {
