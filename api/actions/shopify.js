@@ -85,11 +85,23 @@ export const getCollectionAction = async () => {
   }
 }
 
-export const getPages = async () => {
+export const getPagesAction = async () => {
 
-  const pages = await client.get({
-    path: 'pages',
-  });
-  console.log('pages', pages); // obtengo paginas
-  return pages;
+
+  try {
+    const pages = await client.get({
+      path: 'pages',
+    });
+    console.log('pages', pages); // obtengo paginas
+    if (!pages) {
+      console.log(pages);
+      return null;
+    }
+    return pages;
+  } catch (error) {
+    console.log("error", error);
+    return res.status(500).json({
+      msg: "Hubo un problema en el servidor.",
+    });
+  }
 }
