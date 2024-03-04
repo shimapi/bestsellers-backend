@@ -64,19 +64,29 @@ export const getProductsAction = async () => {
       msg: "Hubo un problema en el servidor.",
     });
   }
-
-
 }
 
-export const getCollection = async () => {
-  const data = await client.get({
-    path: 'collections/470605005093',
-  });
-  console.log('data', data.body.collections); // obtengo colecciones
-  return data;
+export const getCollectionAction = async () => {
+  try {
+    const data = await client.get({
+      path: 'collections/470605005093',
+    });
+    console.log('data', data.body.collections); // obtengo colecciones
+    if (!data) {
+      console.log(data);
+      return null;
+    }
+    return data;
+  } catch (error) {
+    console.log("error", error);
+    return res.status(500).json({
+      msg: "Hubo un problema en el servidor.",
+    });
+  }
 }
 
 export const getPages = async () => {
+
   const pages = await client.get({
     path: 'pages',
   });
