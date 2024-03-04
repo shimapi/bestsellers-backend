@@ -50,7 +50,7 @@ export const getProductAction = async (productID) => {
 export const getProductsAction = async () => {
   try {
     const data = await client.get({
-      path: 'products/',
+      path: 'products',
     });
     if (!data) {
       console.log(data);
