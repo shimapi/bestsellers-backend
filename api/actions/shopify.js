@@ -42,7 +42,7 @@ export const getProductAction = async (productID) => {
   } catch (error) {
     console.log("error", error);
     return res.status(500).json({
-      msg: "Hubo un problema en el servidor.",
+      msg: "Hubo un problema en el servidor.getProductAction",
     });
   }
 };
@@ -50,18 +50,19 @@ export const getProductAction = async (productID) => {
 export const getProductsAction = async () => {
   try {
     const data = await client.get({
-      path: 'products',
+      path: '/products',
     });
+
     if (!data) {
       console.log(data);
       return null;
     }
-    return data;
 
+    return data;
   } catch (error) {
     console.log("error", error);
     return res.status(500).json({
-      msg: "Hubo un problema en el servidor.",
+      msg: "Hubo un problema en el servidor.getProductsAction",
     });
   }
 }
@@ -69,7 +70,7 @@ export const getProductsAction = async () => {
 export const getCollectionAction = async () => {
   try {
     const data = await client.get({
-      path: 'collections/470605005093',
+      path: '/collections/471728161061.json',
     });
     console.log('data', data.body.collections); // obtengo colecciones
     if (!data) {
@@ -80,14 +81,12 @@ export const getCollectionAction = async () => {
   } catch (error) {
     console.log("error", error);
     return res.status(500).json({
-      msg: "Hubo un problema en el servidor.",
+      msg: "Hubo un problema en el servidor.getCollectionAction",
     });
   }
 }
 
 export const getPagesAction = async () => {
-
-
   try {
     const pages = await client.get({
       path: 'pages',
@@ -101,7 +100,26 @@ export const getPagesAction = async () => {
   } catch (error) {
     console.log("error", error);
     return res.status(500).json({
-      msg: "Hubo un problema en el servidor.",
+      msg: "Hubo un problema en el servidor.Pages",
+    });
+  }
+}
+
+export const getBestSellingAction = async () => {
+  try {
+    const bestSelling = await client.get({
+      path: '/collections/471728161061/products.json',
+    });
+    console.log('bestSelling', bestSelling); // obtengo los productos más vendidos
+    if (!bestSelling) {
+      console.log(bestSelling);
+      return null;
+    }
+    return bestSelling.body.products;
+  } catch (error) {
+    console.log("error", error);
+    return res.status(500).json({
+      msg: "Hubo un problema en el servidor.getBestSellingAction",
     });
   }
 }

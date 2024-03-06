@@ -18,7 +18,7 @@ const getProduct = async (req, res) => {
   } catch (error) {
     console.log("error", error);
     return res.status(500).json({
-      msg: "Hubo un problema en el servidor.",
+      msg: "Hubo un problema en el servidor.getProduct",
     });
   }
 };
@@ -34,7 +34,7 @@ const getProducts = async (req, res) => {
   } catch (error) {
     console.log("error", error);
     return res.status(500).json({
-      msg: "Hubo un problema en el servidor.",
+      msg: "Hubo un problema en el servidor.getProducts",
     });
   }
 };
