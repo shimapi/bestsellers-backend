@@ -67,6 +67,26 @@ export const getProductsAction = async () => {
   }
 }
 
+export const getVariantsAction = async (productID) => {
+  try {
+    const data = await client.get({
+      path: `variants/${productID}`,
+    });
+
+    if (!data) {
+      console.log(data);
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.log("error", error);
+    return res.status(500).json({
+      msg: "Hubo un problema en el servidor.getVariantsAction",
+    });
+  }
+};
+
 export const getCollectionAction = async () => {
   try {
     const data = await client.get({
