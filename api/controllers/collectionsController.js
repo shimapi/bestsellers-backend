@@ -1,4 +1,4 @@
-import { getCollectionAction, getBestSellingAction } from "../actions/shopify.js";
+import { getCollectionAction, getBestSellingAction, getAmourAction } from "../actions/shopify.js";
 
 const getCollection = async (req, res) => {
   try {
@@ -19,7 +19,6 @@ const getBestSelling = async (req, res) => {
     const bestSelling = await getBestSellingAction();
     console.log("bestSelling", bestSelling);
     return res.status(200).json(bestSelling);
-
   } catch (error) {
     console.log("error", error);
     return res.status(500).json({
@@ -28,7 +27,21 @@ const getBestSelling = async (req, res) => {
   }
 }
 
+const getAmour = async (req, res) => {
+  try {
+    const amour = await getAmourAction();
+    console.log('amour', amour);
+    return res.status(200).json(amour);
+  } catch (error) {
+    console.log('error', error);
+    return res.status(500).json({
+      msg: "Hubo un problema en el servidor.getAmourAction",
+    });
+  }
+}
+
 export default {
   getCollection,
   getBestSelling,
+  getAmour
 };

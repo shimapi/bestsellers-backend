@@ -28,6 +28,7 @@ app.get("/products/:id", productsController.getProduct);
 // COLLECTIONS
 app.get("/collection", collectionsController.getCollection);
 app.get("/best", collectionsController.getBestSelling);
+app.get("/amour", collectionsController.getAmour);
 
 // PAGES
 app.get("/pages", pagesController.getPages);

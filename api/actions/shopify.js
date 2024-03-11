@@ -90,7 +90,8 @@ export const getVariantsAction = async (productID) => {
 export const getCollectionAction = async () => {
   try {
     const data = await client.get({
-      path: '/collections/471728161061.json',
+      path: '/collections/471728161061.json', //best sellers
+      // path: '/collections/.json', //amour
     });
     console.log('data', data.body.collections); // obtengo colecciones
     if (!data) {
@@ -105,6 +106,7 @@ export const getCollectionAction = async () => {
     });
   }
 }
+
 
 export const getPagesAction = async () => {
   try {
@@ -140,6 +142,26 @@ export const getBestSellingAction = async () => {
     console.log("error", error);
     return res.status(500).json({
       msg: "Hubo un problema en el servidor.getBestSellingAction",
+    });
+  }
+}
+
+//Refactorizar
+export const getAmourAction = async () => {
+  try {
+    const amour = await client.get({
+      path: '/collections/472183865637/products.json',
+    });
+    console.log('amour', amour); // obtengo los productos de la colección amour
+    if (!amour) {
+      console.log(amour);
+      return null;
+    }
+    return amour.body.products;
+  } catch (error) {
+    console.log("error", error);
+    return res.status(500).json({
+      msg: "Hubo un problema en el servidor.getAmourAction",
     });
   }
 }
